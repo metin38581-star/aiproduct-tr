@@ -2,23 +2,13 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { ProductAnalysis } from "../types";
 
 export class GeminiService {
-  private ai: GoogleGenAI;
-
-  constructor() {
-    // API anahtarı hem process.env hem de fallback kontrolüyle alınır
-    const apiKey = process.env.API_KEY;
-    if (!apiKey) {
-      console.warn("API_KEY bulunamadı! Lütfen Vercel ortam değişkenlerini kontrol edin.");
-    }
-    this.ai = new GoogleGenAI({ apiKey: apiKey || '' });
-  }
-
   async analyzeProductImage(base64Data: string, mimeType: string): Promise<ProductAnalysis> {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
     const cleanBase64 = base64Data.includes(',') ? base64Data.split(',')[1] : base64Data;
     
     try {
-      const response = await this.ai.models.generateContent({
-        model: 'gemini-3-flash-preview', // Hızlı ve kararlı model
+      const response = await ai.models.generateContent({
+        model: 'gemini-3-flash-preview',
         contents: [
           {
             parts: [
@@ -29,7 +19,7 @@ export class GeminiService {
                 },
               },
               {
-                text: `Sen profesyonel bir e-ticaret uzmanısın. Bu ürünü analiz et ve yanıtı sadece JSON formatında ver.`
+                text: `Sen profesyonel bir e-ticaret ve dropshipping uzmanısın. Bu ürünü analiz et ve yanıtı sadece JSON formatında ver. Yanıt dili Türkçe olmalıdır.`
               },
             ],
           },
