@@ -9,5 +9,10 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+  },
+  define: {
+    // Vercel'deki API_KEY'i istemci tarafında process.env.API_KEY olarak erişilebilir kılar
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+    'process.env': {}
   }
 });
