@@ -4,15 +4,16 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   define: {
-    // Vercel'deki API_KEY'i build anıda yakalayıp koda gömer
+    // Vercel dashboard üzerindeki API_KEY'i build aşamasında yakalar
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
   },
-  server: {
-    port: 3000,
-  },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: false
+  },
+  server: {
+    port: 3000,
   }
 });
