@@ -8,11 +8,13 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    emptyOutDir: true,
     sourcemap: false
   },
   define: {
-    // Tarayıcı tarafında 'process' hatasını önlemek için global tanımlamalar
+    // Vercel üzerindeki API_KEY'i tarayıcıya güvenli aktarır
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    'process.env': {}
   }
 });
