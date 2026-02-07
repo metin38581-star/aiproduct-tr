@@ -1,0 +1,8 @@
+{
+  "name": "AiproductTR",
+  "description": "Premium E-commerce Product Analysis Platform",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
